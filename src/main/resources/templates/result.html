@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Скопировать ссылку</title>
+    <script>
+        function copyToClipboard() {
+            let copyText = document.getElementById("linkToCopy");
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                alert("Ссылка скопирована!");
+            }, function(err) {
+                alert("Ошибка при копировании: ", err);
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>Ваша ссылка готова</h1>
+<p id="linkToCopy" th:text="${link}"></p>
+<button onclick="copyToClipboard()">Скопировать</button>
+</body>
+</html>
