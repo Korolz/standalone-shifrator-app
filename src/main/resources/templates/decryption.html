@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Расшифровка</title>
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css"/>
+    <script>
+        function copyToClipboard() {
+            let copyText = document.getElementById("linkToCopy");
+            let copyButton = document.getElementById("copyButton");
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                copyButton.textContent = "Расшифровка скопирована!";
+            }, function(err) {
+                copyButton.textContent = "Ошибка при копировании";
+            });
+        }
+    </script>
 </head>
 <body>
-$END$
+<h1>Ваша расшифровка готова</h1>
+<p id="linkToCopy" th:text="${text}"></p>
+<button id="copyButton" onclick="copyToClipboard()">Скопировать</button>
 </body>
 </html>

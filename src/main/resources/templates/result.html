@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <title>Скопировать ссылку</title>
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css"/>
     <script>
         function copyToClipboard() {
             let copyText = document.getElementById("linkToCopy");
+            let copyButton = document.getElementById("copyButton");
             navigator.clipboard.writeText(copyText.textContent).then(function() {
-                alert("Ссылка скопирована!");
+                copyButton.textContent = "Ссылка скопирована!";
             }, function(err) {
-                alert("Ошибка при копировании: ", err);
+                copyButton.textContent = "Ошибка при копировании";
             });
         }
     </script>
@@ -16,6 +18,6 @@
 <body>
 <h1>Ваша ссылка готова</h1>
 <p id="linkToCopy" th:text="${link}"></p>
-<button onclick="copyToClipboard()">Скопировать</button>
+<button id="copyButton" onclick="copyToClipboard()">Скопировать</button>
 </body>
 </html>
