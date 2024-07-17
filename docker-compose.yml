@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      - SPRING_HOST_NAME=localhost:8080
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_DATA_REDIS_PASSWORD=apifactory
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    command: redis-server --requirepass "apifactory"
