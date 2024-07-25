@@ -4,8 +4,31 @@
     <title>Расшифровка</title>
     <link rel="stylesheet" href="/styles/styles.css" type="text/css"/>
     <script>
+        let attemptCount = 0;
+        const maxAttempts = 6;
+
+        function verifyPassword() {
+            const userPassword = document.getElementById("passwordInput").value;
+            const correctPassword = document.getElementById("correctPassword").value;
+            const wrongAttempts = document.getElementById("wrongAttempts");
+
+            if (userPassword === correctPassword) {
+                document.getElementById("protectedContent").style.display = '';
+                document.getElementById("passwordForm").style.display = 'none';
+                document.getElementById("wrongAttempts").style.display = 'none';
+            } else {
+                attemptCount++;
+                document.getElementById("wrongAttempts").style.display = 'block';
+                if (attemptCount >= maxAttempts) {
+                    location.replace("old.html");
+                } else {
+                    wrongAttempts.innerHTML = "Неправильный пароль. Осталось попыток: " + (maxAttempts - attemptCount);
+                }
+            }
+        }
+
         function copyToClipboard() {
-            let copyText = document.getElementById("linkToCopy");
+            let copyText = document.getElementById("textToCopy");
             let copyButton = document.getElementById("copyButton");
             navigator.clipboard.writeText(copyText.textContent).then(function() {
                 copyButton.textContent = "Расшифровка скопирована!";
@@ -13,11 +36,35 @@
                 copyButton.textContent = "Ошибка при копировании";
             });
         }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("passwordInput");
+            const eyeIcon = document.getElementById("eyeIcon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.textContent = "👁️";
+            }
+        }
     </script>
 </head>
 <body>
 <h1>Ваша расшифровка готова</h1>
-<p id="linkToCopy" th:text="${text}"></p>
-<button id="copyButton" onclick="copyToClipboard()">Скопировать</button>
+<div id="passwordForm">
+    <h3 id="wrongAttempts" style="display: none"></h3>
+    <label for="passwordInput">Введите пароль:</label>
+    <div class="password-container">
+        <input type="password" id="passwordInput"/>
+        <span id="eyeIcon" class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+    </div>
+    <button onclick="verifyPassword()">Проверить</button>
+</div>
+<div id="protectedContent" style="display: none">
+    <p id="textToCopy" th:text="${text}"></p>
+    <button id="copyButton" onclick="copyToClipboard()">Скопировать</button>
+</div>
+<input type="hidden" id="correctPassword" th:value="${password}"/>
 </body>
 </html>

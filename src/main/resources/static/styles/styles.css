@@ -10,6 +10,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 p {
     text-align: center;
     font-size: 18px;
@@ -31,7 +38,7 @@ input, button {
 }
 
 input {
-    width: 200px;
+    width: 300px;
 }
 
 button {
@@ -42,4 +49,26 @@ button {
 
 button:hover {
     background-color: #777;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    padding-right: 30px; /* space for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+#textToCopy {
+    max-width: 50%; /* Limit width to half the screen */
+    word-wrap: break-word; /* Break long words */
+    justify-content: center;
 }

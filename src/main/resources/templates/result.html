@@ -4,11 +4,21 @@
     <title>Скопировать ссылку</title>
     <link rel="stylesheet" href="/styles/styles.css" type="text/css"/>
     <script>
-        function copyToClipboard() {
+        function copyLinkToClipboard() {
             let copyText = document.getElementById("linkToCopy");
-            let copyButton = document.getElementById("copyButton");
+            let copyButton = document.getElementById("copyLinkButton");
             navigator.clipboard.writeText(copyText.textContent).then(function() {
                 copyButton.textContent = "Ссылка скопирована!";
+            }, function(err) {
+                copyButton.textContent = "Ошибка при копировании";
+            });
+        }
+
+        function copyPassToClipboard() {
+            let copyText = document.getElementById("passToCopy");
+            let copyButton = document.getElementById("copyPassButton");
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                copyButton.textContent = "Пароль скопирован!";
             }, function(err) {
                 copyButton.textContent = "Ошибка при копировании";
             });
@@ -16,8 +26,10 @@
     </script>
 </head>
 <body>
-<h1>Ваша ссылка готова</h1>
-<p id="linkToCopy" th:text="${link}" hidden></p>
-<button id="copyButton" onclick="copyToClipboard()">Скопировать ссылку</button>
+<h1>Ваши ссылка и пароль готовы</h1>
+<p id="linkToCopy" th:text="${link}"></p>
+<button id="copyLinkButton" onclick="copyLinkToClipboard()">Скопировать ссылку</button>
+<p id="passToCopy" th:text="${password}"></p>
+<button id="copyPassButton" onclick="copyPassToClipboard()">Скопировать пароль</button>
 </body>
 </html>
