@@ -20,6 +20,8 @@ public class EncryptionService {
     @Value("${host.name}")
     private String hostname;
 
+    private final int LINK_LENGTH = 20;
+
     @Autowired
     public EncryptionService(EncryptionRepository modelRepository) {
         this.encryptionRepository = modelRepository;
@@ -33,7 +35,7 @@ public class EncryptionService {
 
         String password = Base64.getUrlEncoder().encodeToString(secretKey.getEncoded());
 
-        String linkPart = RandomString.create();
+        String linkPart = RandomString.create(LINK_LENGTH);
 
         Encryption model = new Encryption(linkPart, outerEncryption, password);
         encryptionRepository.save(model);
