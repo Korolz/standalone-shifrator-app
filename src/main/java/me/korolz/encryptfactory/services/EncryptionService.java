@@ -44,7 +44,7 @@ public class EncryptionService {
 
     public String getLink(Encryption encryption) {
         return String.format(
-                "http://%s/decrypt/%s",
+                "https://%s/decrypt/%s",
                 hostname,
                 encryption.getLink()
         );
